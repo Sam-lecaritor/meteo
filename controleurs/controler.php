@@ -36,7 +36,7 @@ $log->pushHandler(new StreamHandler('logs/min_warning.log', Logger::WARNING));
 *utilisation de monolog pour la journalisation
 *
 */
-$user = new App\UtilisateurManager();
+
 
 $vue="";
 if(isset($_GET['url'])){
@@ -48,6 +48,7 @@ if(isset($_GET['url'])){
             break;
             
         case "utilisateurs":
+            $user = new App\UtilisateurManager();
             $content = $user->lister();
             $content = $user->afficherListeUser($content);
             $vue= "template/vues/VueUtilisateur.php";
@@ -85,7 +86,7 @@ d('Get off my lawn!'); // Debugs no longer have any effect
 
 
 
-
+?>
 
 
 
