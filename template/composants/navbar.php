@@ -16,6 +16,7 @@
         <li><a href="utilisateurs">Par utilisateur</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> ajouter un utilisateur</a></li> 
          <li><a href="#"><span class="glyphicon glyphicon glyphicon-pencil"></span> ajouter un relevé</a></li> 
         <li><a href="#"><span class="glyphicon glyphicon-tower"></span> Ajouter une ville</a></li>
         
