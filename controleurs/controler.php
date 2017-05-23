@@ -16,8 +16,9 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
 // On test que le dossier logs existe, sinon on le crée
-if(! (file_exists('logs') && is_dir('logs')))
-        mkdir('logs',0775);
+if (! (file_exists('logs') && is_dir('logs'))) {
+        mkdir('logs', 0775);
+}
 
 // Initialisation des loggers avec monolog
 $log = new Logger('test_logger');
@@ -39,11 +40,12 @@ $log->pushHandler(new StreamHandler('logs/min_warning.log', Logger::WARNING));
 
 
 $vue="";
-if(isset($_GET['url'])){
-    
-    switch($_GET['url']){
-            
-        case "accueil" :            
+$message="<div class='alert alert-info'>
+  <strong>Info!</strong> Indicates a neutral informative change or action.
+</div>";
+if (isset($_GET['url'])) {
+    switch ($_GET['url']) {
+        case "accueil":
             $content="";
             break;
             
@@ -53,15 +55,29 @@ if(isset($_GET['url'])){
             $content = $user->afficherListeUser($content);
             $vue= "template/vues/VueUtilisateur.php";
             break;
-            
-            
-        default:   
-        header('Location: accueil');
-       
-}
-}else{
-   header('Location: accueil'); 
-    
+
+        case "ajoutUtilisateur":
+            d($_POST);
+            if (isset( $_POST['nom']) && isset( $_POST['prenom']) && isset($_POST['email'])) {
+                $donnees = new App\Validator();
+                $inscription = $donnees->validerInscription($_POST);
+
+                if ($inscription) {
+                    $message=$inscription["message"];
+$testbdd = new App\BddManager();
+
+$testbdd->enregistrerUtilisateur($inscription);
+                }
+            } else {
+                echo "videee";
+            }
+            $vue= "template/vues/ajouterUser.php";
+            break;
+        default:
+            header('Location: accueil');
+    }
+} else {
+    header('Location: accueil');
 }
 
 
@@ -71,27 +87,15 @@ if(isset($_GET['url'])){
 *
 */
 
-Kint::dump($GLOBALS, $_SERVER); // pass any number of parameters
-d($GLOBALS, $_SERVER); // or simply use d() as a shorthand
+//Kint::dump($GLOBALS, $_SERVER); // pass any number of parameters
+//d($GLOBALS, $_SERVER); // or simply use d() as a shorthand
+//d();
+//Kint::trace(); // Debug backtrace
+//d(1); // Debug backtrace shorthand
 
-Kint::trace(); // Debug backtrace
-d(1); // Debug backtrace shorthand
-
-//s($GLOBALS); // remplace le print_r avec la balise <pre> 
-
+//s($_POST); // remplace le print_r avec la balise <pre> 
+//d($_POST);
 //~d($GLOBALS); // Text only output mode
 
 Kint::$enabled_mode = false; // Disable kint
 d('Get off my lawn!'); // Debugs no longer have any effect
-
-
-
-?>
-
-
-
-
-
-
-
-

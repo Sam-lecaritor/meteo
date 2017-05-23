@@ -1,50 +1,47 @@
 <?php
 
 namespace App;
+
 use PDO;
 
-
-class UtilisateurManager{
+class UtilisateurManager
+{
     
-   private $base;
+    private $base;
     private $content=[];
     
     
- public function __construct(){
-$this->base = new BddManager();
-$this->base->connect();
-return $this->base; 
-     
- }   
+    public function __construct()
+    {
+        $this->base = new BddManager();
+        $this->base->connect();
+        return $this->base;
+    }
     
     
-    public function lister(){
-      $liste = $this->base->selectioner();
-       /* foreach($liste as $users){
-           $contenu[]=$users; 
-            
+    public function lister()
+    {
+        $liste = $this->base->selectioner();
+        while ($donnees = $liste->fetch(PDO::FETCH_ASSOC)) {
+                $content[]= $donnees;
         }
-        */
-        while ($donnees = $liste->fetch(PDO::FETCH_ASSOC))
-            {
-                $content[]= $donnees;   
-            }   
-     return $this->content =$content;
-        
-        
-   
+        return $this->content =$content;
     }
     
     
-    public function afficherListeUser($content){  
+    public function afficherListeUser($content)
+    {
  
-foreach($content as $key=>$value){
- $this->content[]= $value;
-
-}
+        foreach ($content as $key => $value) {
+                 $this->content[]= $value;
+        }
         return $content;
-      
     }
 
-    
+    public function enregistrerUser($datas)
+    {
+        if ($datas['status']== 1) {
+        } elseif ($datas['status']== 0) {
+        }
+    }
 }
